@@ -2,6 +2,7 @@ console.log('Lets write javascript');
 let currentSong = new Audio();
 // console.log(currentSong)
 let songs;
+let currfolder;
 
 //seconds to minutes : second format
 function secondsToMinutesSeconds(seconds) {
@@ -18,8 +19,9 @@ function secondsToMinutesSeconds(seconds) {
     return `${formattedMinutes}:${formattedSeconds}`;
 }
 
-async function getSongs() {
-    let a = await fetch("http://127.0.0.1:3000/songs/")
+async function getSongs(folder) {
+    currfolder = folder;
+    let a = await fetch(`https://deba2608.github.io/${folder}/`)
     let response = await a.text();
     // console.log(response)
     let div = document.createElement("div");
@@ -30,7 +32,7 @@ async function getSongs() {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split("/songs/")[1])
+            songs.push(element.href.split(`/${folder}/`)[1])
         }
 
     }
@@ -41,7 +43,7 @@ async function getSongs() {
 const playMusic = (track, pause = false) => {
     // let audio = new Audio("/songs/"+ track)
     track += ".mp3"
-    currentSong.src = "/songs/" + track;
+    currentSong.src = `/${currfolder}/` + track;
 
     if (!pause) {
 
@@ -61,7 +63,7 @@ async function main() {
 
 
     // get the list of all the songs
-   songs = await getSongs();
+   songs = await getSongs("songs/NCS");
 
     playMusic(songs[0].replace(".mp3", ""), true);
 
@@ -179,7 +181,7 @@ async function main() {
 
     // add an eventlistner for volume
     document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e)=>{
-        console.log(e.target.value);
+        console.log("setting volume to",e.target.value,"/100");
         currentSong.volume = parseInt(e.target.value)/100;
         
     })
