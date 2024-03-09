@@ -63,11 +63,11 @@ async function main() {
 
 
     // get the list of all the songs
-   songs = await getSongs("songs/NCS");
+    songs = await getSongs("songs/Bengali");
 
     playMusic(songs[0].replace(".mp3", ""), true);
 
-    // show all the songs in the playlist 
+    // show all the songs in the playlist
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0]
     for (const song of songs) {
         songUL.innerHTML = songUL.innerHTML + `<li>

@@ -113,7 +113,9 @@ html {
 }
 
 .header .nav svg {
-    padding-right: .6rem;
+    
+    cursor: pointer;
+    margin-left: .6rem;
 }
 
 .spotifyPlaylists {
@@ -343,7 +345,7 @@ html {
 
 .abovebar {
     display: flex;
-    gap: 4rem;
+    gap: 3.2rem;
     font-size: 1.7rem;
 
 }
@@ -353,6 +355,17 @@ html {
     padding: 2px;
     width: fit-content58;
     position: relative;
+}
+.volume{
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: .5rem;
+}
+.range input{
+    width: 8rem;
+    height: .7rem;
+    /* fill: goldenrod; */
 }
 
 .songinfo {
@@ -367,10 +380,12 @@ html {
 .hamberger {
     display: none;
     width: 30px;
+    cursor: pointer;
 }
 
 .left .close {
     display: none;
+    
     /* position: absolute; */
 }
 
