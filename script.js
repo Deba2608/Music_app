@@ -186,6 +186,9 @@ async function main() {
         
     })
 
+    //Load the playlist whenever csrd is clicked
+    
+
     
 
 }

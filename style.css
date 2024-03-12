@@ -23,12 +23,12 @@ html {
 }
 
 .left {
-    width: 20vw;
+    width: 22vw;
     /* padding: .3rem; */
 }
 
 .right {
-    width: 80vw;
+    width: 78vw;
     margin: .7rem 0;
     margin-right: .7rem;
     position: relative;
@@ -297,7 +297,7 @@ html {
 
 .playbar {
     position: fixed;
-    width: 77.5%;
+    width: calc(75.6%);
     min-height: 6.5rem;
     bottom: .8rem;
     border-radius: .7rem;
