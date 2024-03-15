@@ -361,10 +361,16 @@ html {
     align-items: start;
     justify-content: center;
     gap: .5rem;
+    cursor: pointer;
+}
+.volume:hover .range input{
+    opacity: 1;
 }
 .range input{
+    opacity: 0;
     width: 8rem;
     height: .7rem;
+    cursor: pointer;
     /* fill: goldenrod; */
 }
 
