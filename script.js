@@ -232,6 +232,7 @@ async function main() {
     document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e) => {
         console.log("setting volume to", e.target.value, "/100");
         currentSong.volume = parseInt(e.target.value) / 100;
+        while
 
     })
 
@@ -242,11 +243,6 @@ async function main() {
             e.target.src = e.target.src.replace("volume.svg","mute.svg")
             currentSong.volume = 0;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
-
-            while(document.querySelector(".range").getElementsByTagName("input")[0].value == 0){
-                e.target.src = e.target.src.replace("volume.svg","mute.svg")
-                currentSong.volume = 0;
-            }
         }else{
             e.target.src = e.target.src.replace("mute.svg","volume.svg")
             currentSong.volume = .15;
