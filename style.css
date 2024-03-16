@@ -113,7 +113,7 @@ html {
 }
 
 .header .nav svg {
-    
+
     cursor: pointer;
     margin-left: .6rem;
 }
@@ -356,20 +356,25 @@ html {
     width: fit-content58;
     position: relative;
 }
-.volume{
+
+.volume {
     display: flex;
     align-items: start;
     justify-content: center;
     gap: .5rem;
     cursor: pointer;
 }
-.volume:hover .range input{
+
+.volume:hover .range input {
     opacity: 1;
+    /* display: inline-block; */
 }
-.range input{
+
+.range input {
     opacity: 0;
-    width: 8rem;
-    height: .7rem;
+    /* display: none; */
+    width: 9rem;
+    height: 5.5rem;
     cursor: pointer;
     /* fill: goldenrod; */
 }
@@ -391,7 +396,7 @@ html {
 
 .left .close {
     display: none;
-    
+
     /* position: absolute; */
 }
 
@@ -482,7 +487,8 @@ html {
     html {
         font-size: 50%;
     }
-    .songbtn img{
+
+    .songbtn img {
         width: 20px;
     }
 }
@@ -491,29 +497,33 @@ html {
     html {
         font-size: 46%;
     }
-    .playbar{
-        padding:.7rem;
+
+    .playbar {
+        padding: .7rem;
     }
-    .playbar .abovebar{
+
+    .playbar .abovebar {
         display: flex;
         flex-direction: column;
         gap: .5rem;
         align-items: center;
         font-size: 1.8rem;
         padding-bottom: 1rem;
-        
+
     }
-    
+
 }
 
 @media(max-width:325px) {
     html {
         font-size: 45%;
     }
-    .songbtn img{
+
+    .songbtn img {
         width: 18px;
     }
-    .playbar .abovebar{
+
+    .playbar .abovebar {
         display: flex;
         flex-direction: column;
         gap: .5rem;
