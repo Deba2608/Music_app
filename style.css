@@ -334,23 +334,21 @@ html {
 
 .abovebar {
     display: flex;
-    gap: 3.2rem;
+    gap: 3rem;
     font-size: 1.7rem;
     width: 100%;
-    border: 2px solid red;
-    /* align-items: center;
-    justify-content: center; */
+    position: relative;
+    align-items: center;
+    /* justify-content: center; */
 
 }
 
 .songinfo {
     display: flex;
-    right: 10px;
-    width: fit-content;
+    width: 45%;
     justify-content: right;
     flex-wrap: wrap;
-    position: absolute;
-    right: 55%;
+    text-transform: capitalize;
 
 }
 
@@ -359,8 +357,7 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    left: 48%;
+
 
 }
 
@@ -368,20 +365,17 @@ html {
     cursor: pointer;
 }
 
-
 .songtime {
-
     padding: 2px;
-    width: fit-content58;
-    position: absolute;
+    width: fit-content;
 }
 
 .volume {
     display: flex;
-    align-items: start;
-    justify-content: center;
+    align-items: center;
     gap: .5rem;
     cursor: pointer;
+    width: 10rem;
 }
 
 .volume:hover .range input {
@@ -390,11 +384,9 @@ html {
 }
 
 .range input {
-    /* opacity: 0; */
-    display: none;
-    width: 9rem;
-    height: 5.5rem;
+    /* display: none; */
     cursor: pointer;
+    width: 8rem;
 }
 
 
@@ -420,11 +412,6 @@ html {
     background-color: #242424;
     ;
 }
-
-/* .search-form.active{
-    display: flex;
-    border: 1px solid white;
-} */
 
 .search-form input {
     width: 100%;
@@ -487,10 +474,29 @@ html {
     } */
 }
 
-@media(max-width:770px) {
-    /* .playbar {
-        width: 96%;
-    } */
+@media(max-width:771px) {
+    html{
+        font-size: 55%;
+    }
+    .abovebar{
+        gap: 2rem;
+    }
+    .range input {
+        width: 7rem;
+    }
+}
+
+
+@media(max-width:650px){
+    html{
+        font-size: 52%;
+    }
+    .abovebar{
+        gap: 1.6rem;
+    }
+    .range input {
+        width: 6.5rem;
+    }
 }
 
 @media(max-width:426px) {
@@ -500,6 +506,20 @@ html {
 
     .songbtn img {
         width: 20px;
+    }
+    .songinfo{
+        width: fit-content;
+    }
+
+    .playbar .abovebar {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        padding-bottom: 1rem;
+
     }
 }
 
@@ -512,15 +532,6 @@ html {
         padding: .7rem;
     }
 
-    .playbar .abovebar {
-        display: flex;
-        flex-direction: column;
-        gap: .5rem;
-        align-items: center;
-        font-size: 1.8rem;
-        padding-bottom: 1rem;
-
-    }
 
 }
 

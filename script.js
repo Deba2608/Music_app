@@ -121,7 +121,7 @@ async function displayAlbums() {
         }
     }
 
-    
+
     //Load the playlist whenever card is clicked
     Array.from(document.getElementsByClassName("card")).forEach(e => {
 
@@ -158,7 +158,7 @@ async function main() {
         }
     })
 
-    //add an eventlistner to previous 
+    //add an eventlistner to previous
     previous.addEventListener("click", () => {
 
         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
@@ -169,7 +169,7 @@ async function main() {
 
     })
 
-    //add an eventlistner to  next 
+    //add an eventlistner to  next
     next.addEventListener("click", () => {
         currentSong.pause()
         play.src = "play.svg"
@@ -232,26 +232,39 @@ async function main() {
     document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e) => {
         console.log("setting volume to", e.target.value, "/100");
         currentSong.volume = parseInt(e.target.value) / 100;
-        while
 
-    })
-
-    //Add eventlistner to mute the volume
-    document.querySelector(".volume>img").addEventListener("click", e=>{
-        console.log(e.target.src);
-        if(e.target.src.includes("volume.svg")){
-            e.target.src = e.target.src.replace("volume.svg","mute.svg")
-            currentSong.volume = 0;
-            document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
-        }else{
-            e.target.src = e.target.src.replace("mute.svg","volume.svg")
-            currentSong.volume = .15;
-            document.querySelector(".range").getElementsByTagName("input")[0].value=15;
+        if (e.target.value == 0) {
+            document.querySelector(".volume>img").src = document.querySelector(".volume>img").src.replace("volume.svg", "mute.svg");
+            console.log(document.querySelector(".volume>img").src)
+        }
+        else {
+            document.querySelector(".volume>img").src = document.querySelector(".volume>img").src.replace("mute.svg", "volume.svg");
         }
     })
 
+    //Add eventlistner to mute the volume
+    document.querySelector(".volume>img").addEventListener("click", e => {
+        console.log(e.target.src);
+        if (e.target.src.includes("volume.svg")) {
+            e.target.src = e.target.src.replace("volume.svg", "mute.svg")
+            currentSong.volume = 0;
+            document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
+        } else {
+            e.target.src = e.target.src.replace("mute.svg", "volume.svg")
+            currentSong.volume = .15;
+            document.querySelector(".range").getElementsByTagName("input")[0].value = 15;
+        }
+    })
 
-    
+    const progress = document.querySelector('.progress');
+
+    progress.addEventListener('input', function () {
+        const value = this.value;
+        this.style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 ${value}%, #fff ${value}%, #fff 100%)`
+    })
+
+
+
 
 
 }
