@@ -332,29 +332,48 @@ html {
     /* transition:  left .5s; */
 }
 
+.abovebar {
+    display: flex;
+    gap: 3.2rem;
+    font-size: 1.7rem;
+    width: 100%;
+    border: 2px solid red;
+    /* align-items: center;
+    justify-content: center; */
+
+}
+
+.songinfo {
+    display: flex;
+    right: 10px;
+    width: fit-content;
+    justify-content: right;
+    flex-wrap: wrap;
+    position: absolute;
+    right: 55%;
+
+}
+
 .songbtn {
     width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    left: 48%;
+
 }
 
 .songbtn img {
     cursor: pointer;
 }
 
-.abovebar {
-    display: flex;
-    gap: 3.2rem;
-    font-size: 1.7rem;
-
-}
 
 .songtime {
 
     padding: 2px;
     width: fit-content58;
-    position: relative;
+    position: absolute;
 }
 
 .volume {
@@ -366,27 +385,18 @@ html {
 }
 
 .volume:hover .range input {
-    opacity: 1;
-    /* display: inline-block; */
+    /* opacity: 1; */
+    display: inline-block;
 }
 
 .range input {
-    opacity: 0;
-    /* display: none; */
+    /* opacity: 0; */
+    display: none;
     width: 9rem;
     height: 5.5rem;
     cursor: pointer;
-    /* fill: goldenrod; */
 }
 
-.songinfo {
-    display: flex;
-    right: 10px;
-    width: fit-content;
-    justify-content: right;
-    flex-wrap: wrap;
-
-}
 
 .hamberger {
     display: none;

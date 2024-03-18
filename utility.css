@@ -64,20 +64,20 @@
 
 
 input[type="range"] {
-    width: 95px;
-    height: 3px;
+    width: 100%;
+    height: 100%;
     -webkit-appearance: none;
     appearance: none;
-    background: #cce7b1;
+    background: #de6d87;
     border-radius: 1.5px;
     outline: none;
-    transform: translate(0%, -88%);
+    transform: translate(0%, -120%);
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
     width: 100%;
     height: 3px;
-    background:#f7f8f6;
+    background:#fcfaf9;
     border-radius: 1.5px;
 }
 
@@ -86,7 +86,7 @@ input[type="range"]::-webkit-slider-thumb {
 appearance: none;
 width: 13px;
 height: 13px;
-background: #bdbbbb;
+background: #818080;
 border-radius: 50%;
 cursor: pointer;
 transform: translate(0, -38%);
