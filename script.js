@@ -189,9 +189,14 @@ async function main() {
     currentSong.addEventListener("timeupdate", () => {
 
         document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`;
-
-        document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
+        
+        document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100+ "%";
+        
+        const value = (currentSong.currentTime / currentSong.duration) * 100;
+        console.log(value);
+        document.querySelector(".seekbar").style.background = `linear-gradient(to right, #fff 0%, #fff ${value}%, #82da7fb4 ${value}%, #82da7fb4 100%)`
     })
+
 
     // Add an event listener to seekbar
 
@@ -256,15 +261,13 @@ async function main() {
         }
     })
 
+// Add event listner to volume update
     const progress = document.querySelector('.progress');
 
     progress.addEventListener('input', function () {
         const value = this.value;
         this.style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 ${value}%, #fff ${value}%, #fff 100%)`
     })
-
-
-
 
 
 }

@@ -313,11 +313,10 @@ html {
     width: 90%;
     position: absolute;
     height: .5rem;
-    /* border: 2px solid red; */
-    background-color: rgba(130, 218, 127, 0.705);
+    background-color: #82da7fb4;
+    background: linear-gradient(to right, #fff 0%, #fff 0%, #82da7fb4 0%, #82da7fb4 100%);
     bottom: 1rem;
     cursor: pointer;
-    /* left: 10rem; */
 
 }
 
@@ -339,6 +338,7 @@ html {
     width: 100%;
     position: relative;
     align-items: center;
+    padding-bottom: 1rem;
     /* justify-content: center; */
 
 }
