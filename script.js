@@ -31,7 +31,7 @@ async function getSongs(folder) {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split(`${folder}/`)[1])
+            songs.push(element.href.split(`/${folder}/`)[1])
         }
 
     }
@@ -98,12 +98,11 @@ async function displayAlbums() {
     for (let index = 0; index < array.length; index++) {
         const e = array[index];
 
-        if (e.href.includes("songs") && !e.href.includes(".htaccess")) {
+        if (e.href.includes("/songs") && !e.href.includes(".htaccess")) {
             let folder = e.href.split("/").slice(4)[0];
             //get the meta dat of the folder
             let a = await fetch(`songs/${folder}/info.json`)
             let response = await a.json();
-            console.log(response);
             cardContainer.innerHTML = cardContainer.innerHTML + `<div  data-folder="${folder}" class="card rounded">
             <div class="play">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"
@@ -126,7 +125,6 @@ async function displayAlbums() {
     Array.from(document.getElementsByClassName("card")).forEach(e => {
 
         e.addEventListener("click", async item => {
-            console.log(e);
             songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
         })
     })
@@ -162,7 +160,6 @@ async function main() {
     previous.addEventListener("click", () => {
 
         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
-        console.log(songs, index);
         if ((index - 1) >= 0) {
             playMusic(songs[index - 1].replace(".mp3", ""))
         }
@@ -193,7 +190,6 @@ async function main() {
         document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100+ "%";
         
         const value = (currentSong.currentTime / currentSong.duration) * 100;
-        console.log(value);
         document.querySelector(".seekbar").style.background = `linear-gradient(to right, #fff 0%, #fff ${value}%, #82da7fb4 ${value}%, #82da7fb4 100%)`
     })
 
@@ -249,15 +245,16 @@ async function main() {
 
     //Add eventlistner to mute the volume
     document.querySelector(".volume>img").addEventListener("click", e => {
-        console.log(e.target.src);
         if (e.target.src.includes("volume.svg")) {
             e.target.src = e.target.src.replace("volume.svg", "mute.svg")
             currentSong.volume = 0;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
+            document.querySelector('.progress').style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 0%, #fff 0%, #fff 100%)`;
         } else {
             e.target.src = e.target.src.replace("mute.svg", "volume.svg")
             currentSong.volume = .15;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 15;
+            document.querySelector('.progress').style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 15%, #fff 15%, #fff 100%)`;
         }
     })
 
@@ -266,6 +263,7 @@ async function main() {
 
     progress.addEventListener('input', function () {
         const value = this.value;
+        console.log(value);
         this.style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 ${value}%, #fff ${value}%, #fff 100%)`
     })
 
