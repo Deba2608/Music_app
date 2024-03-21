@@ -32,7 +32,6 @@ html {
     margin: .7rem 0;
     margin-right: .7rem;
     position: relative;
-    /* border: 2px solid red; */
 }
 
 .home ul li {
@@ -99,7 +98,6 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid yellow;
     background-color: #090909;
     padding: .5rem 1.8rem;
     border-radius: 7px 7px 0 0;
@@ -121,9 +119,6 @@ html {
 .spotifyPlaylists {
     position: relative;
     height: 84.5vh;
-
-    /* overflow-y: scroll; */
-    border: 1px solid rgb(255, 0, 204);
 }
 
 .cardContainer {
@@ -233,7 +228,6 @@ html {
     margin: 1.5rem 0;
     height: 40rem;
     overflow: auto;
-    border: 2px solid rebeccapurple;
 
 }
 
@@ -249,7 +243,6 @@ html {
     gap: 8px;
     cursor: pointer;
     font-size: 1.2rem;
-    border: 1px solid white;
     margin-bottom: .5rem;
     margin-right: .3rem;
     padding: 9px;
@@ -263,8 +256,6 @@ html {
     width: 10.5rem;
     flex-wrap: wrap;
     padding-bottom: 3px;
-    /* font-size: 1.2rem; */
-    /* border: 2px solid greenyellow; */
 }
 
 .playnow {

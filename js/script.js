@@ -1,6 +1,5 @@
 console.log('Lets write javascript');
 let currentSong = new Audio();
-// console.log(currentSong)
 let songs;
 let currfolder;
 
@@ -42,14 +41,14 @@ async function getSongs(folder) {
     for (const song of songs) {
         songUL.innerHTML = songUL.innerHTML + `<li>
          
-                          <img class="invert" src="music.svg" alt="">
+                          <img class="invert" src="img/music.svg" alt="">
                              <div class="info">
                                  <div class="song">${song.replaceAll("%20", " ").replaceAll(".mp3", "")}</div>
                                  <div>Debayan</div>
                              </div>
                              <div class="playnow">
                                  <span>Play Now</span>
-                                 <img src="play.svg" alt="">
+                                 <img src="img/play.svg" alt="">
                              </div>
                          </li>
                      </li> `;
@@ -76,7 +75,7 @@ const playMusic = (track, pause = false) => {
     if (!pause) {
 
         currentSong.play()
-        play.src = "pause.svg"
+        play.src = "img/pause.svg"
     }
 
 
@@ -86,7 +85,7 @@ const playMusic = (track, pause = false) => {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`songs/`)
+    let a = await fetch(`/songs/`)
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -101,7 +100,8 @@ async function displayAlbums() {
         if (e.href.includes("/songs") && !e.href.includes(".htaccess")) {
             let folder = e.href.split("/").slice(4)[0];
             //get the meta dat of the folder
-            let a = await fetch(`songs/${folder}/info.json`)
+            currfolder=folder;
+            let a = await fetch(`/songs/${folder}/info.json`)
             let response = await a.json();
             cardContainer.innerHTML = cardContainer.innerHTML + `<div  data-folder="${folder}" class="card rounded">
             <div class="play">
@@ -148,11 +148,11 @@ async function main() {
     play.addEventListener("click", () => {
         if (currentSong.paused) {
             currentSong.play()
-            play.src = "pause.svg"
+            play.src = "img/pause.svg"
         }
         else {
             currentSong.pause()
-            play.src = "play.svg"
+            play.src = "img/play.svg"
         }
     })
 
@@ -169,14 +169,14 @@ async function main() {
     //add an eventlistner to  next
     next.addEventListener("click", () => {
         currentSong.pause()
-        play.src = "play.svg"
+        play.src = "img/play.svg"
 
         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
 
         if ((index + 1) < songs.length) {
             playMusic(songs[index + 1].replace(".mp3", ""))
         } else {
-            play.src = "play.svg"
+            play.src = "img/play.svg"
         }
 
     })
@@ -245,13 +245,13 @@ async function main() {
 
     //Add eventlistner to mute the volume
     document.querySelector(".volume>img").addEventListener("click", e => {
-        if (e.target.src.includes("volume.svg")) {
-            e.target.src = e.target.src.replace("volume.svg", "mute.svg")
+        if (e.target.src.includes("img/volume.svg")) {
+            e.target.src = e.target.src.replace("img/volume.svg", "img/mute.svg")
             currentSong.volume = 0;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
             document.querySelector('.progress').style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 0%, #fff 0%, #fff 100%)`;
         } else {
-            e.target.src = e.target.src.replace("mute.svg", "volume.svg")
+            e.target.src = e.target.src.replace("img/mute.svg", "img/volume.svg")
             currentSong.volume = .15;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 15;
             document.querySelector('.progress').style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 15%, #fff 15%, #fff 100%)`;
