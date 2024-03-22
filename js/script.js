@@ -215,12 +215,14 @@ async function main() {
 
     //search option appear
     document.querySelector(".search-icon").addEventListener("click", () => {
-        if (document.querySelector(".search-form").style.display === "none" || document.querySelector(".search-form").style.display === "") {
-            document.querySelector(".search-form").style.cssText = `display: flex; `;
+        if (document.querySelector(".search-form").style.display === "none" || document.querySelector(".search-form").style.display === " ") {
+            document.querySelector(".search-form").style.display="flex";
+            document.querySelector(".left").style.left = "-120%"
         } else {
             document.querySelector(".search-form").style.display = "none";
         }
     })
+
     document.querySelector(".search-form").addEventListener("click", () => {
 
         document.querySelector(".search-form").style.cssText = `
@@ -266,6 +268,11 @@ async function main() {
         console.log(value);
         this.style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 ${value}%, #fff ${value}%, #fff 100%)`
     })
+
+//search option for medium and small devices
+document.querySelector(".search-icon").addEventListener("click",()=>{
+    
+})
 
 
 }

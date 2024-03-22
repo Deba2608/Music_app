@@ -394,7 +394,7 @@ html {
     height: 3.5rem;
     width: 30rem;
     background-color: #242424;
-    ;
+    z-index: 5;
 }
 
 .search-form input {
@@ -448,6 +448,18 @@ html {
 
     .hamberger {
         display: block;
+    }
+    .search-form {
+        display: none;
+        align-items: center;
+        position: absolute;
+        border-radius: 18px;
+        height: 3.5rem;
+        width: 35rem;
+        right: 3%;
+        top: 12%;
+        background-color: #242424;
+        z-index: 5;
     }
 
 }
