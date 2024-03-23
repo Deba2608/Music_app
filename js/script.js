@@ -269,10 +269,6 @@ async function main() {
         this.style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 ${value}%, #fff ${value}%, #fff 100%)`
     })
 
-//search option for medium and small devices
-document.querySelector(".search-icon").addEventListener("click",()=>{
-    
-})
 
 
 }
