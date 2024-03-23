@@ -297,7 +297,7 @@ html {
     width: 90%;
     position: absolute;
     height: .5rem;
-    background-color: #82da7fb4;
+    /* background-color: #82da7fb4; */
     background: linear-gradient(to right, #fff 0%, #fff 0%, #82da7fb4 0%, #82da7fb4 100%);
     bottom: 1rem;
     cursor: pointer;
