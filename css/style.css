@@ -329,7 +329,7 @@ html {
 
 .songinfo {
     display: flex;
-    width: 45%;
+    width: 44%;
     justify-content: right;
     flex-wrap: wrap;
     text-transform: capitalize;

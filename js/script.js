@@ -56,14 +56,12 @@ async function getSongs(folder) {
 
     // attach an event listener to each song in the libary section
     Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(e => {
-
         e.addEventListener("click", element => {
-
-            console.log(e.querySelector(".info").firstElementChild.innerHTML);
             playMusic(e.querySelector(".info").firstElementChild.innerHTML);
-            // document.querySelector(".playnow").innerHTML + "playing";
+            
         })
-    });
+    })
+    return songs;
 }
 
 
@@ -99,7 +97,8 @@ async function displayAlbums() {
 
         if (e.href.includes("/songs") && !e.href.includes(".htaccess")) {
             let folder = e.href.split("/").slice(4)[0];
-            //get the meta dat of the folder
+
+            //get the meta data of the folder
             currfolder=folder;
             let a = await fetch(`/songs/${folder}/info.json`)
             let response = await a.json();
@@ -120,12 +119,12 @@ async function displayAlbums() {
         }
     }
 
-
     //Load the playlist whenever card is clicked
     Array.from(document.getElementsByClassName("card")).forEach(e => {
 
         e.addEventListener("click", async item => {
             songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
+            playMusic(songs[0].replace(".mp3", ""));
         })
     })
 
