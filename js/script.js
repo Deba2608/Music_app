@@ -40,18 +40,17 @@ async function getSongs(folder) {
     songUL.innerHTML = ""
     for (const song of songs) {
         songUL.innerHTML = songUL.innerHTML + `<li>
-         
-                          <img class="invert" src="img/music.svg" alt="">
-                             <div class="info">
-                                 <div class="song">${song.replaceAll("%20", " ").replaceAll(".mp3", "")}</div>
-                                 <div>Debayan</div>
-                             </div>
-                             <div class="playnow">
-                                 <span>Play Now</span>
-                                 <img src="img/play.svg" alt="">
-                             </div>
-                         </li>
-                     </li> `;
+        
+                        <img class="invert" src="img/music.svg" alt="">
+                            <div class="info">
+                                <div class="song">${song.replaceAll("%20", " ").replaceAll(".mp3", "")}</div>
+                                <div>Debayan</div>
+                            </div>
+                            <div class="playnow">
+                                <span>Play Now</span>
+                                <img src="img/play.svg" alt="">
+                            </div>
+                    </li> `;
     }
 
     // attach an event listener to each song in the libary section
