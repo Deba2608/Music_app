@@ -1,7 +1,8 @@
-console.log('Lets write javascript');
+
 let currentSong = new Audio();
 let songs;
 let currfolder;
+let currentSongIndex = 0;
 
 //seconds to minutes : second format
 function secondsToMinutesSeconds(seconds) {
@@ -29,18 +30,16 @@ async function getSongs(folder) {
     songs = []
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
-
         if (element.href.endsWith(".mp3")) {
             songs.push(element.href.split(`/${folder}/`)[1])
         }
-
     }
 
     // show all the songs in the playlist
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0]
     songUL.innerHTML = ""
     for (const song of songs) {
-        songUL.innerHTML = `${songUL.innerHTML}<li>
+        songUL.innerHTML = songUL.innerHTML + `<li>
         
                         <img class="invert" src="img/music.svg" alt="">
                             <div class="info">
@@ -58,7 +57,6 @@ async function getSongs(folder) {
     Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(e => {
         e.addEventListener("click", element => {
             playMusic(e.querySelector(".info").firstElementChild.innerHTML);
-            
         })
     })
     return songs;
@@ -66,15 +64,23 @@ async function getSongs(folder) {
 
 
 const playMusic = (track, pause = false) => {
-    // let audio = new Audio("/songs/"+ track)
+    
     track += ".mp3"
     currentSong.src = `/${currfolder}/` + track;
 
     if (!pause) {
-
+        
         currentSong.play()
         play.src = "img/pause.svg"
     }
+
+    // currentSong.addEventListener("ended", () => {
+    //     currentSongIndex++;
+    
+    //     if (currentSongIndex < songs.length) {
+    //     playMusic();
+    //     }
+    // });
 
 
     // document.querySelector(".playnow").innerHTML ="Playing"
@@ -99,7 +105,6 @@ async function displayAlbums() {
             let folder = e.href.split("/").slice(4)[0];
 
             //get the meta data of the folder
-            currfolder=folder;
             let a = await fetch(`/songs/${folder}/info.json`)
             let response = await a.json();
             cardContainer.innerHTML = cardContainer.innerHTML + `<div  data-folder="${folder}" class="card rounded">
@@ -124,24 +129,21 @@ async function displayAlbums() {
 
         e.addEventListener("click", async item => {
             songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
-            playMusic(songs[0].replace(".mp3", ""));
+            playMusic(songs[currentSongIndex].replace(".mp3", ""));
         })
     })
 
 
 }
 
-
 async function main() {
-
-
     // get the list of all the songs
     await getSongs("songs/Bengali");
-    playMusic(songs[0].replace(".mp3", ""), true);
+
+    playMusic(songs[currentSongIndex].replace(".mp3", ""), true);
 
     //Display all the albums on the page
     displayAlbums()
-
 
     // Attach an event listener to play
     play.addEventListener("click", () => {
@@ -157,12 +159,10 @@ async function main() {
 
     //add an eventlistner to previous
     previous.addEventListener("click", () => {
-
         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
         if ((index - 1) >= 0) {
             playMusic(songs[index - 1].replace(".mp3", ""))
         }
-
     })
 
     //add an eventlistner to  next
@@ -194,12 +194,10 @@ async function main() {
 
 
     // Add an event listener to seekbar
-
     document.querySelector(".seekbar").addEventListener("click", e => {
         let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100
         document.querySelector(".circle").style.left = percent + "%";
         currentSong.currentTime = ((currentSong.duration) * percent) / 100;
-
     })
 
     //Add an eventlistner to hamburger
@@ -223,7 +221,6 @@ async function main() {
     })
 
     document.querySelector(".search-form").addEventListener("click", () => {
-
         document.querySelector(".search-form").style.cssText = `
             display: flex;
             border: 1px solid white;
@@ -261,7 +258,6 @@ async function main() {
 
 // Add event listner to volume update
     const progress = document.querySelector('.progress');
-
     progress.addEventListener('input', function () {
         const value = this.value;
         console.log(value);
