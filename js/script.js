@@ -29,6 +29,7 @@ async function getSongs(folder) {
     songs = []
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
+
         if (element.href.endsWith(".mp3")) {
             songs.push(element.href.split(`/${folder}/`)[1])
         }
@@ -39,11 +40,11 @@ async function getSongs(folder) {
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0]
     songUL.innerHTML = ""
     for (const song of songs) {
-        songUL.innerHTML = songUL.innerHTML + `<li>
+        songUL.innerHTML = `${songUL.innerHTML}<li>
         
                         <img class="invert" src="img/music.svg" alt="">
                             <div class="info">
-                                <div class="song">${song.replaceAll("%20", " ").replaceAll(".mp3", "")}</div>
+                                <div class="song">${song.replaceAll("%20"," ").replaceAll(".mp3", "")}</div>
                                 <div>Debayan</div>
                             </div>
                             <div class="playnow">
