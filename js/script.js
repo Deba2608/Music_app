@@ -54,8 +54,11 @@ async function getSongs(folder) {
     }
 
     // attach an event listener to each song in the libary section
-    Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(e => {
-        e.addEventListener("click", element => {
+    let array = Array.from(document.querySelector(".songList").getElementsByTagName("li"))
+    array.forEach(e => {
+        e.addEventListener("click", (element) => {
+            console.log(array.indexOf(e));
+            currentSongIndex=array.indexOf(e);
             playMusic(e.querySelector(".info").firstElementChild.innerHTML);
         })
     })
@@ -63,25 +66,16 @@ async function getSongs(folder) {
 }
 
 
-const playMusic = (track, pause = false) => {
+const playMusic = (track, pause=false)=> {
     
     track += ".mp3"
     currentSong.src = `/${currfolder}/` + track;
 
     if (!pause) {
-        
         currentSong.play()
         play.src = "img/pause.svg"
     }
-
-    // currentSong.addEventListener("ended", () => {
-    //     currentSongIndex++;
-    
-    //     if (currentSongIndex < songs.length) {
-    //     playMusic();
-    //     }
-    // });
-
+    // console.log(currentSong);
 
     // document.querySelector(".playnow").innerHTML ="Playing"
     document.querySelector(".songinfo").innerHTML = decodeURI(track.replaceAll(".mp3", ""));
@@ -144,6 +138,20 @@ async function main() {
 
     //Display all the albums on the page
     displayAlbums()
+
+    //if current song pause change the bottomn
+    currentSong.addEventListener("pause",()=>{
+        play.src = "img/play.svg"
+    })
+
+    //next song play automatically
+    currentSong.addEventListener("ended", () => {
+        currentSongIndex ++;
+        if (currentSongIndex < songs.length) {
+            playMusic(songs[currentSongIndex].replace(".mp3", ""));
+        }
+        console.log(currentSongIndex);
+    });
 
     // Attach an event listener to play
     play.addEventListener("click", () => {
