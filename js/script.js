@@ -57,7 +57,6 @@ async function getSongs(folder) {
     let array = Array.from(document.querySelector(".songList").getElementsByTagName("li"))
     array.forEach(e => {
         e.addEventListener("click", (element) => {
-            console.log(array.indexOf(e));
             currentSongIndex=array.indexOf(e);
             playMusic(e.querySelector(".info").firstElementChild.innerHTML);
         })
@@ -75,7 +74,6 @@ const playMusic = (track, pause=false)=> {
         currentSong.play()
         play.src = "img/pause.svg"
     }
-    // console.log(currentSong);
 
     // document.querySelector(".playnow").innerHTML ="Playing"
     document.querySelector(".songinfo").innerHTML = decodeURI(track.replaceAll(".mp3", ""));
@@ -150,7 +148,6 @@ async function main() {
         if (currentSongIndex < songs.length) {
             playMusic(songs[currentSongIndex].replace(".mp3", ""));
         }
-        console.log(currentSongIndex);
     });
 
     // Attach an event listener to play
@@ -237,12 +234,10 @@ async function main() {
 
     // add an eventlistner for volume
     document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e) => {
-        console.log("setting volume to", e.target.value, "/100");
         currentSong.volume = parseInt(e.target.value) / 100;
 
         if (e.target.value == 0) {
             document.querySelector(".volume>img").src = document.querySelector(".volume>img").src.replace("volume.svg", "mute.svg");
-            console.log(document.querySelector(".volume>img").src)
         }
         else {
             document.querySelector(".volume>img").src = document.querySelector(".volume>img").src.replace("mute.svg", "volume.svg");
@@ -268,7 +263,6 @@ async function main() {
     const progress = document.querySelector('.progress');
     progress.addEventListener('input', function () {
         const value = this.value;
-        console.log(value);
         this.style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 ${value}%, #fff ${value}%, #fff 100%)`
     })
 
