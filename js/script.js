@@ -43,7 +43,7 @@ async function getSongs(folder) {
         
                         <img class="invert" src="img/music.svg" alt="">
                             <div class="info">
-                                <div class="song">${song.replaceAll("%20"," ").replaceAll(".mp3", "")}</div>
+                                <div class="song">${song.replaceAll("%20", " ").replaceAll(".mp3", "")}</div>
                                 <div>Debayan</div>
                             </div>
                             <div class="playnow">
@@ -57,7 +57,7 @@ async function getSongs(folder) {
     let array = Array.from(document.querySelector(".songList").getElementsByTagName("li"))
     array.forEach(e => {
         e.addEventListener("click", (element) => {
-            currentSongIndex=array.indexOf(e);
+            currentSongIndex = array.indexOf(e);
             playMusic(e.querySelector(".info").firstElementChild.innerHTML);
         })
     })
@@ -65,8 +65,8 @@ async function getSongs(folder) {
 }
 
 
-const playMusic = (track, pause=false)=> {
-    
+const playMusic = (track, pause = false) => {
+
     track += ".mp3"
     currentSong.src = `/${currfolder}/` + track;
 
@@ -120,12 +120,11 @@ async function displayAlbums() {
     Array.from(document.getElementsByClassName("card")).forEach(e => {
 
         e.addEventListener("click", async item => {
+            currentSongIndex = 0;
             songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
             playMusic(songs[currentSongIndex].replace(".mp3", ""));
         })
     })
-
-
 }
 
 async function main() {
@@ -138,13 +137,18 @@ async function main() {
     displayAlbums()
 
     //if current song pause change the bottomn
-    currentSong.addEventListener("pause",()=>{
+    currentSong.addEventListener("pause", () => {
         play.src = "img/play.svg"
+    })
+
+    //if current song play change the bottomn
+    currentSong.addEventListener("play", () => {
+        play.src = "img/pause.svg"
     })
 
     //next song play automatically
     currentSong.addEventListener("ended", () => {
-        currentSongIndex ++;
+        currentSongIndex++;
         if (currentSongIndex < songs.length) {
             playMusic(songs[currentSongIndex].replace(".mp3", ""));
         }
@@ -164,9 +168,9 @@ async function main() {
 
     //add an eventlistner to previous
     previous.addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
-        if ((index - 1) >= 0) {
-            playMusic(songs[index - 1].replace(".mp3", ""))
+        if ((currentSongIndex - 1) >= 0) {
+            playMusic(songs[currentSongIndex - 1].replace(".mp3", ""))
+            currentSongIndex--;
         }
     })
 
@@ -175,10 +179,9 @@ async function main() {
         currentSong.pause()
         play.src = "img/play.svg"
 
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
-
-        if ((index + 1) < songs.length) {
-            playMusic(songs[index + 1].replace(".mp3", ""))
+        if ((currentSongIndex + 1) < songs.length) {
+            playMusic(songs[currentSongIndex + 1].replace(".mp3", ""))
+            currentSongIndex++;
         } else {
             play.src = "img/play.svg"
         }
@@ -190,9 +193,9 @@ async function main() {
     currentSong.addEventListener("timeupdate", () => {
 
         document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`;
-        
-        document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100+ "%";
-        
+
+        document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
+
         const value = (currentSong.currentTime / currentSong.duration) * 100;
         document.querySelector(".seekbar").style.background = `linear-gradient(to right, #fff 0%, #fff ${value}%, #82da7fb4 ${value}%, #82da7fb4 100%)`
     })
@@ -218,7 +221,7 @@ async function main() {
     //search option appear
     document.querySelector(".search-icon").addEventListener("click", () => {
         if (document.querySelector(".search-form").style.display === "none" || document.querySelector(".search-form").style.display === " ") {
-            document.querySelector(".search-form").style.display="flex";
+            document.querySelector(".search-form").style.display = "flex";
             document.querySelector(".left").style.left = "-120%"
         } else {
             document.querySelector(".search-form").style.display = "none";
@@ -259,12 +262,25 @@ async function main() {
         }
     })
 
-// Add event listner to volume update
+    // Add event listner to volume update
     const progress = document.querySelector('.progress');
     progress.addEventListener('input', function () {
         const value = this.value;
         this.style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 ${value}%, #fff ${value}%, #fff 100%)`
     })
+
+    // change the play Now to playing and play.svg to pause.svg
+    // let array = Array.from(document.querySelector(".songList").getElementsByTagName("li"))
+
+    // currentSong.addEventListener("play", () => {
+
+    //     array[currentSongIndex].querySelector(".playnow").firstElementChild.innerHTML = "Playing";
+    //     array[currentSongIndex].querySelector(".playnow").lastElementChild.src = "img/pause.svg";
+    // })
+    // currentSong.addEventListener("pause", () => {
+    //     array[currentSongIndex].querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
+    //     array[currentSongIndex].querySelector(".playnow").lastElementChild.src = "img/play.svg";
+    // })
 
 
 
