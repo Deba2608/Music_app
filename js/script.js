@@ -58,7 +58,10 @@ async function getSongs(folder) {
     array.forEach(e => {
         e.addEventListener("click", (element) => {
             currentSongIndex = array.indexOf(e);
+            console.log(e);
             playMusic(e.querySelector(".info").firstElementChild.innerHTML);
+            // e.querySelector(".playnow").firstElementChild.innerHTML = "Playing";
+            // e.querySelector(".playnow").lastElementChild.src = "img/pause.svg";
         })
     })
     return songs;
@@ -219,7 +222,8 @@ async function main() {
     })
 
     //search option appear
-    document.querySelector(".search-icon").addEventListener("click", () => {
+    document.querySelector(".search-icon").addEventListener("click", (e) =>{
+        console.log(e);
         if (document.querySelector(".search-form").style.display === "none" || document.querySelector(".search-form").style.display === " ") {
             document.querySelector(".search-form").style.display = "flex";
             document.querySelector(".left").style.left = "-120%"

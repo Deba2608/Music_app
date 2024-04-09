@@ -385,6 +385,9 @@ html {
 
     /* position: absolute; */
 }
+.left .close img{
+    cursor: pointer;
+}
 
 .search-form {
     display: none;
