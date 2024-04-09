@@ -222,9 +222,9 @@ async function main() {
     })
 
     //search option appear
-    document.querySelector(".search-icon").addEventListener("click", (e) =>{
-        console.log(e);
+    document.querySelector(".search-icon").addEventListener("click", () =>{
         if (document.querySelector(".search-form").style.display === "none" || document.querySelector(".search-form").style.display === " ") {
+
             document.querySelector(".search-form").style.display = "flex";
             document.querySelector(".left").style.left = "-120%"
         } else {
