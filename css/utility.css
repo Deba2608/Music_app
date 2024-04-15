@@ -38,6 +38,7 @@
 /* Apply these styles to the scrollbar */
 ::-webkit-scrollbar {
     width: 12px; /* Width of the scrollbar */
+    z-index: 1;
   }
   
   /* Handle on hover */
