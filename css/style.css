@@ -218,7 +218,7 @@ html {
 
 .songList {
     margin: 2rem 0;
-    /* height: 36rem; */
+    height: 36rem;
     overflow-y: auto;
 
 }
@@ -297,7 +297,6 @@ html {
     width: 90%;
     position: absolute;
     height: .5rem;
-    /* background-color: #82da7fb4; */
     background: linear-gradient(to right, #fff 0%, #fff 0%, #82da7fb4 0%, #82da7fb4 100%);
     bottom: 1rem;
     cursor: pointer;
@@ -497,7 +496,7 @@ html {
         width: 6.5rem;
     }
 }
-@media(max-width:540px) and (min-width:426px){
+@media(max-width:540px) and (min-width:433px){
     html{
         font-size: 50%;
     }
@@ -517,17 +516,24 @@ html {
     }
 }
 
-@media(max-width:426px) {
+@media(max-width:433px) {
     html {
-        font-size: 49%;
+        font-size: 48%;
+    }
+    .cardContainer{
+        height: 60vh;
     }
     .range input {
         width: 6.3rem;
         display: inline-block;
     }
+    .volume>img{
+        width: 21px;
+        height: 21px;
+    }
 
     .songbtn img {
-        width: 22px;
+        width: 21px;
     }
     .songtime{
         font-size: 12px;
@@ -555,11 +561,6 @@ html {
 @media(max-width:391px) {
     html {
         font-size: 46%;
-    }
-
-    .volume>img{
-        width: 22px;
-        height: 22px;
     }
 
 
