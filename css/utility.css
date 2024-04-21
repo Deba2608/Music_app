@@ -37,8 +37,7 @@
 
 /* Apply these styles to the scrollbar */
 ::-webkit-scrollbar {
-    width: 12px; /* Width of the scrollbar */
-    z-index: 1;
+    width: 10px;
   }
   
   /* Handle on hover */
@@ -54,7 +53,7 @@
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #222; /* Color of the scrollbar track */
+    background: #121212; /* Color of the scrollbar track */
   }
   
   /* Handle on active */

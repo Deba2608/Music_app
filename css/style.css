@@ -218,7 +218,7 @@ html {
 
 .songList {
     margin: 2rem 0;
-    height: 36rem;
+    height: 50vh;
     overflow-y: auto;
 
 }
