@@ -82,7 +82,7 @@ height: 13px;
 background: #9ffb96;
 border-radius: 50%;
 cursor: pointer;
-transform: translate(0, -4%);
+/* transform: translate(100%,0); */
 }
 
 
