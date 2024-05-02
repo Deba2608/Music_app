@@ -367,7 +367,7 @@ html {
 }
 
 .range input {
-    display: none;
+    /* display: none; */
     cursor: pointer;
     width: 8rem;
 }
