@@ -16,6 +16,8 @@
 body {
     background-color: black;
     color: white;
+    overflow: hidden;
+    /* height: 100%; */
 }
 
 html {
@@ -24,11 +26,11 @@ html {
 
 .left {
     width: 22vw;
-    max-height: 100vh;
+    /* height: 98vh; */
 }
 
 .right {
-    height: 100vh;
+    height: 98svh;
     width: 78vw;
     margin: .7rem 0;
     margin-right: .7rem;
@@ -45,15 +47,34 @@ html {
     padding-top: 1rem;
     cursor: pointer;
 }
+.home ul li span{
+    padding-top: .2rem;
+}
 
 .home {
     padding: 1rem;
     color: gray;
     height: 18vh;
 }
+.home .logo{
+    display: flex;
+    gap: 1.2rem;
+    color: white;
+    font-size: 2rem;
+    font-weight: 500;
+}
 
 .home .logo img {
     padding-top: 0;
+}
+.home .logo span{
+    padding-top: .35rem;
+}
+.home .logo .titletotal{
+    letter-spacing:.1rem;
+}
+.titlefront{
+    color: #fd2955;
 }
 
 
@@ -71,7 +92,7 @@ html {
 }
 
 .library {
-    height: 81vh;
+    height: 79.2vh;
     position: relative;
     padding: 1.7rem;
     padding-right: 1rem;
@@ -81,15 +102,15 @@ html {
     display: flex;
     font-size: 1rem;
     flex-wrap: wrap;
-    gap: 1.8rem;
+    gap: 1.7rem;
     position: absolute;
     bottom: 0;
-    padding: 1.3rem 0;
+    padding: 1.8rem 0;
 
 }
 
 .footer a {
-    color: gray;
+    color: rgb(237, 186, 206);
     text-decoration: none;
 }
 
@@ -97,7 +118,7 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #090909;
+    background-color: #08192d;
     padding: .5rem 1.8rem;
     border-radius: 7px 7px 0 0;
     height: 5.5rem;
@@ -121,7 +142,7 @@ html {
 }
 
 .cardContainer {
-    background-color: #101010;
+    background-color: #081a2f;
     display: grid;
     grid-template-columns:repeat(auto-fit, minmax(18rem, 1fr));
     gap: 1.5rem;
@@ -138,7 +159,7 @@ html {
     height:fit-content;
     padding: 1.3rem;
     position: relative;
-    background-color: #181818;
+    background-color: #0a183d;
 }
 
 .card img {
@@ -179,13 +200,13 @@ html {
 }
 
 .card:hover {
-    background-color: #262626;
+    background-color: #112559;
     cursor: pointer;
 }
 
 .signupbtn {
     background-color: #090909;
-    color: gray;
+    color: rgb(246, 214, 214);
     font-weight: bold;
     margin-right: 2.3rem;
     padding: 1rem 1.3rem;
@@ -196,7 +217,7 @@ html {
 }
 
 .signupbtn:hover {
-    color: white;
+    color: #fd2955;
     font-size: 1.6rem;
 }
 
@@ -213,6 +234,7 @@ html {
 
 .loginbtn:hover {
     font-weight: bold;
+    color: #fd2955;
     transform: scale(1.1);
 }
 
@@ -220,6 +242,7 @@ html {
     margin: 2rem 0;
     height: 50vh;
     overflow-y: auto;
+    background-color: #081a2f;
 
 }
 
@@ -240,7 +263,7 @@ html {
     padding: 9px;
     border-radius: 7px;
     overflow-y: auto;
-    border: 1px solid gray;
+    border: 1px solid #1b6bc0;
 }
 
 .songList ul li .info .song {
@@ -285,7 +308,9 @@ html {
     min-height: 6.5rem;
     bottom: .8rem;
     border-radius: .7rem;
-    background-color: rgba(21, 173, 16, 0.744);
+    /* background-color: rgba(21, 173, 16, 0.744); */
+    background-color:  #fd2955;
+    /* background-color:  #fc4d70; */
     padding: 1.5rem 0;
     display: flex;
     flex-direction: column;
@@ -297,7 +322,7 @@ html {
     width: 90%;
     position: absolute;
     height: .5rem;
-    background: linear-gradient(to right, #fff 0%, #fff 0%, #82da7fb4 0%, #82da7fb4 100%);
+    background: linear-gradient(to right, #fff 0%, #fff 0%,#ffa4b6 0%, #ffa4b6 100%);
     bottom: 1rem;
     cursor: pointer;
 

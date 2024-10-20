@@ -106,9 +106,9 @@ async function displayAlbums() {
             <div class="play">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"
                     fill="none">
-                    <circle cx="50" cy="50" r="25" fill="#1fdf64" />
+                    <circle cx="50" cy="50" r="25" fill="#fc4d70" />
                     <g transform="translate(39, 38)">
-                        <path d="M5 20V4L19 12L5 20Z" fill="#000" />
+                        <path d="M5 20V4L19 12L5 20Z" fill="#0a183d" />
                     </g>
                 </svg>
             </div>
@@ -200,7 +200,7 @@ async function main() {
         document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
 
         const value = (currentSong.currentTime / currentSong.duration) * 100;
-        document.querySelector(".seekbar").style.background = `linear-gradient(to right, #fff 0%, #fff ${value}%, #82da7fb4 ${value}%, #82da7fb4 100%)`
+        document.querySelector(".seekbar").style.background = `linear-gradient(to right, #fff 0%, #fff ${value}%, #ffa4b6 ${value}%, #ffa4b6 100%)`
     })
 
 
@@ -257,12 +257,12 @@ async function main() {
             e.target.src = e.target.src.replace("img/volume.svg", "img/mute.svg")
             currentSong.volume = 0;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
-            document.querySelector('.progress').style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 0%, #fff 0%, #fff 100%)`;
+            document.querySelector('.progress').style.background = `linear-gradient(to right, #ff9aae 0%, #ff9aae 0%, #fff 0%, #fff 100%)`;
         } else {
             e.target.src = e.target.src.replace("img/mute.svg", "img/volume.svg")
             currentSong.volume = .15;
             document.querySelector(".range").getElementsByTagName("input")[0].value = 15;
-            document.querySelector('.progress').style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 15%, #fff 15%, #fff 100%)`;
+            document.querySelector('.progress').style.background = `linear-gradient(to right, #ffb1c1 0%, #ffb1c1 15%, #fff 0%, #fff 100%)`;
         }
     })
 
@@ -270,7 +270,7 @@ async function main() {
     const progress = document.querySelector('.progress');
     progress.addEventListener('input', function () {
         const value = this.value;
-        this.style.background = `linear-gradient(to right, #9ffb96 0%, #9ffb96 ${value}%, #fff ${value}%, #fff 100%)`
+        this.style.background = `linear-gradient(to right, #ff9aae 0%, #ff9aae ${value}%, #fff ${value}%, #fff 100%)`
     })
 
     // change the play Now to playing and play.svg to pause.svg
