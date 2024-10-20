@@ -5,7 +5,7 @@
 }
 
 body {
-	background: #121212;
+	background-color: #081421;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -40,7 +40,7 @@ span {
 }
 
 a {
-	color: #1DB954;
+	color: #fd2955;
 	font-size: 14px;
 	text-decoration: none;
 	margin: 15px 0;
@@ -48,8 +48,8 @@ a {
 
 button {
 	border-radius: 20px;
-	border: 1px solid #1DB954;
-	background-color: #1DB954;
+	border: 1px solid #fd2955;
+	background-color: #fd2955;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -57,6 +57,7 @@ button {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+	cursor: pointer;
 }
 
 button:active {
@@ -69,12 +70,12 @@ button:focus {
 
 button.ghost {
 	background-color: transparent;
-	border-color: #1DB954;
-	color: #1DB954;
+	border-color: #fd2955;
+	color:#fd2955 ;
 }
 
 form {
-	background-color: #181818;
+	background-color: #0a183d;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -94,7 +95,7 @@ input {
 }
 
 .container {
-	background-color: #181818;
+	background-color: #0a183d;
 	border-radius: 10px;
   	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 			0 10px 10px rgba(0,0,0,0.22);
