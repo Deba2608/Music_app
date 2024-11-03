@@ -1,4 +1,38 @@
+// Import necessary Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyA8Jo4GfLDgIA6jlQ8DqNYY-x7Jkzi_1Ok",
+    authDomain: "debaspotifyclone.firebaseapp.com",
+    projectId: "debaspotifyclone",
+    storageBucket: "debaspotifyclone.appspot.com",
+    messagingSenderId: "845893822646",
+    appId: "1:845893822646:web:7f38db2243000f26c61e17"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Function to redirect to login page after 5 seconds if not logged in
+function redirectIfNotLoggedIn() {
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            // User is not logged in
+            console.log("User not logged in. Redirecting to login page in 5 seconds...");
+            setTimeout(function() {
+                window.location.href = '/signIn.html'; // Update with your actual login page URL
+            }, 5000); // 5 seconds
+        } else {
+            console.log("User is logged in:", user);
+            // No need to redirect if the user is logged in
+        }
+    });
+}
+
+// Call the function when the page loads
+redirectIfNotLoggedIn();
 let currentSong = new Audio();
 let songs;
 let currfolder;
