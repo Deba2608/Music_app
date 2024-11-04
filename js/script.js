@@ -23,7 +23,7 @@ function redirectIfNotLoggedIn() {
             console.log("User not logged in. Redirecting to login page in 5 seconds...");
             setTimeout(function() {
                 window.location.href = '/signIn.html'; // Update with your actual login page URL
-            }, 5000); // 5 seconds
+            }, 8000); // 5 seconds
         } else {
             console.log("User is logged in:", user);
             // No need to redirect if the user is logged in

@@ -16,12 +16,18 @@
 body {
     background-color: black;
     color: white;
-    overflow: hidden;
+    overflow: auto;
+    overscroll-behavior: none;
     /* height: 100%; */
 }
+  
+  body::-webkit-scrollbar {
+    display: none; 
+  }
 
 html {
     font-size: 62.5%;
+    overscroll-behavior: none;
 }
 
 .left {
@@ -139,6 +145,7 @@ html {
 .spotifyPlaylists {
     position: relative;
     height: 84.5vh;
+    overflow-y: hidden;
 }
 
 .cardContainer {
