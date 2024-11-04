@@ -1,6 +1,6 @@
-// Import necessary Firebase modules
+// Import Firebase modules from the same version
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -12,27 +12,64 @@ const firebaseConfig = {
     appId: "1:845893822646:web:7f38db2243000f26c61e17"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Authentication and get a reference to the auth service
 const auth = getAuth(app);
+
+// Select buttons from the DOM
+const signUpLink = document.getElementById('signup-link');
+const loginLink = document.getElementById('login-link');
+const logoutBtn = document.getElementById('logout-btn');
+
+// Check if the user is logged in
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is logged in, hide Sign up and Log in buttons, show Log out button
+        signUpLink.style.display = 'none';
+        loginLink.style.display = 'none';
+        logoutBtn.style.display = 'block';
+    } else {
+        // No user is logged in, show Sign up and Log in buttons, hide Log out button
+        signUpLink.style.display = 'block';
+        loginLink.style.display = 'block';
+        logoutBtn.style.display = 'none';
+    }
+});
+
+// Log out functionality
+logoutBtn.addEventListener('click', () => {
+    signOut(auth).then(() => {
+        console.log('User signed out');
+        window.location.href = 'signIn.html'; // Redirect to login page after logout
+    }).catch((error) => {
+        console.error('Error signing out:', error);
+    });
+});
+
 
 // Function to redirect to login page after 5 seconds if not logged in
 function redirectIfNotLoggedIn() {
     onAuthStateChanged(auth, (user) => {
         if (!user) {
-            // User is not logged in
+            
             console.log("User not logged in. Redirecting to login page in 5 seconds...");
             setTimeout(function() {
-                window.location.href = '/signIn.html'; // Update with your actual login page URL
-            }, 8000); // 5 seconds
+                window.location.href = '/signIn.html'; 
+            }, 8000); 
         } else {
             console.log("User is logged in:", user);
-            // No need to redirect if the user is logged in
+
         }
     });
 }
 
 // Call the function when the page loads
 redirectIfNotLoggedIn();
+
+
+
 let currentSong = new Audio();
 let songs;
 let currfolder;
