@@ -127,6 +127,7 @@ async function getSongs(folder) {
     // attach an event listener to each song in the libary section
     let array = Array.from(document.querySelector(".songList").getElementsByTagName("li"))
     array.forEach((e, index) => {
+        
         e.addEventListener("click", (element) => {
             if (currentSongIndex !== null) {
                 // Reset the previously playing song
@@ -134,8 +135,10 @@ async function getSongs(folder) {
                 previousSong.querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
                 previousSong.querySelector(".playnow").lastElementChild.src = "img/play.svg";
                 // console.log(previousSong)
-            }
 
+                previousSong.querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal ;letter-spacing:0;";
+            }
+// e.querySelector(".info").firstElementChild.style.transition="none"
 
             currentSongIndex = index;
             playMusic(e.querySelector(".info").firstElementChild.innerHTML);
@@ -144,6 +147,8 @@ async function getSongs(folder) {
             // Update the UI for the currently playing song
             e.querySelector(".playnow").firstElementChild.innerHTML = "Playing";
             e.querySelector(".playnow").lastElementChild.src = "img/pause.svg";
+
+            e.querySelector(".playnow").firstElementChild.style.cssText = "color: #fd2955; font-weight: bold ;letter-spacing: .8px;";
         })
     })
     return songs;
@@ -351,7 +356,7 @@ async function main() {
         array[currentSongIndex].querySelector(".playnow").firstElementChild.innerHTML = "Playing";
         array[currentSongIndex].querySelector(".playnow").lastElementChild.src = "img/pause.svg";
 
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.cssText="color: #fd2955; font-weight: bold ;letter-spacing: .6px;";
+        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.cssText = "color: #fd2955; font-weight: bold ;letter-spacing: .8px; ";
 
     })
     currentSong.addEventListener("pause", () => {
@@ -359,7 +364,7 @@ async function main() {
         array[currentSongIndex].querySelector(".playnow").lastElementChild.src = "img/play.svg";
 
         array[currentSongIndex].querySelector(".playnow").firstElementChild.style.color = "white";
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.cssText="color: white; font-weight: normal;letter-spacing:0";
+        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal;letter-spacing:0";
     })
 
     //add an eventlistner to previous
@@ -371,11 +376,13 @@ async function main() {
         if ((currentSongIndex - 1) >= 0) {
             playMusic(songs[currentSongIndex - 1].replace(".mp3", ""))
             currentSongIndex--;
-            let previousSong = array[currentSongIndex + 1 ];
+            let previousSong = array[currentSongIndex + 1];
             console.log(previousSong)
             previousSong.querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
             previousSong.querySelector(".playnow").lastElementChild.src = "img/play.svg";
-        }else{
+            previousSong.querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal;letter-spacing:0";
+
+        } else {
             play.src = "img/play.svg"
         }
     })
@@ -388,12 +395,12 @@ async function main() {
         if ((currentSongIndex + 1) < songs.length) {
             playMusic(songs[currentSongIndex + 1].replace(".mp3", ""))
             currentSongIndex++;
-            let previousSong = array[currentSongIndex - 1 ];
+            let previousSong = array[currentSongIndex - 1];
             console.log(previousSong)
             previousSong.querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
             previousSong.querySelector(".playnow").lastElementChild.src = "img/play.svg";
 
-            previousSong.querySelector(".playnow").firstElementChild.style.cssText="color: white";
+            previousSong.querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal;letter-spacing:0";
         }
         else {
             play.src = "img/play.svg"
@@ -401,12 +408,6 @@ async function main() {
 
     })
 
-    if(array[currentSongIndex].querySelector(".playnow").firstElementChild.innerHTML == "Playing"){
-
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.color = "#fd2955";
-    }else{
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.color = "white";
-    }
 
 
 

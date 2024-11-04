@@ -42,6 +42,10 @@ html {
     margin-right: .7rem;
     position: relative;
 }
+.playnow span{
+    /* transition:all .2s ease-in; */
+    transition: none;
+}
 
 .home ul li {
     display: flex;
