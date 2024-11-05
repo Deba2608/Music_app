@@ -13,118 +13,92 @@ const firebaseConfig = {
     appId: "1:845893822646:web:7f38db2243000f26c61e17"
 };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const database = getDatabase(app);
-  
-  window.register = function register() {
-    const email = document.getElementById('registerEmail').value;
-    const password = document.getElementById('registerPassword').value;
-    const full_name = document.getElementById('registerName').value;
-  
-    console.log('Registering user...');
-    console.log('Email:', email, 'Password:', password, 'Full Name:', full_name);
-  
-    if (!validateEmail(email) || !validatePassword(password)) {
-      alert('Email or password is incorrect');
-      return;
-    }
-    if (!validateField(full_name)) {
-      alert('One or more given credentials are incorrect');
-      return;
-    }
-  
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log('User created:', user);
-  
-        const database_ref = ref(database, 'users/' + user.uid);
-        const user_data = {
-          email: email,
-          full_name: full_name,
-          last_login: Date.now()
-        };
-  
-        set(database_ref, user_data)
-          .then(() => {
-            console.log('User data saved successfully');
-            alert('User Created!!');
-            // Redirect to homepage
-            window.location.href = '/';
-          })
-          .catch((error) => {
-            console.error('Error writing user data:', error);
-          });
-      })
-      .catch((error) => {
-        console.error('Error creating user:', error);
-        alert(error.message);
-      });
-  }
-  
-  window.signIn = function signIn() {
-    const email = document.getElementById('signInEmail').value;
-    const password = document.getElementById('signInPassword').value;
-  
-    console.log('Signing in user...');
-    console.log('Email:', email, 'Password:', password);
-  
-    if (!validateEmail(email) || !validatePassword(password)) {
-      alert('Email or password is incorrect');
-      return;
-    }
-  
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log('User signed in:', user);
-  
-        const database_ref = ref(database, 'users/' + user.uid);
-        const user_data = {
-          last_login: Date.now()
-        };
-  
-        update(database_ref, user_data)
-          .then(() => {
-            console.log('User data updated successfully');
-            alert('User Logged In!!');
-            // Redirect to homepage
-            window.location.href = '/';
-          })
-          .catch((error) => {
-            console.error('Error updating user data:', error);
-          });
-      })
-      .catch((error) => {
-        console.error('Error signing in:', error);
-        alert(error.message);
-      });
-  }
-  
-  function validateEmail(email) {
-    const expression = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return expression.test(email);
-  }
-  
-  function validatePassword(password) {
-    return password.length >= 6;
-  }
-  
-  function validateField(field) {
-    return field != null && field.length > 0;
-  }
-  
-  document.addEventListener('DOMContentLoaded', () => {
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.getElementById('container');
-  
-    signUpButton.addEventListener('click', () => {
-      container.classList.add("right-panel-active");
-    });
-  
-    signInButton.addEventListener('click', () => {
-      container.classList.remove("right-panel-active");
-    });
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const database = getDatabase(app);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.querySelector('.container');
+  const signUpBtn = document.querySelector('.sign-up-btn');
+  const signInBtn = document.querySelector('.sign-in-btn');
+  const desktopSignUpBtn = document.getElementById('sign-up-btn');
+  const desktopSignInBtn = document.getElementById('sign-in-btn');
+  const signUpForm = document.getElementById('signUpForm');
+  const signInForm = document.getElementById('signInForm');
+
+  // Mobile navigation
+  signUpBtn?.addEventListener('click', () => {
+      container.classList.add('sign-up-mode');
+      signUpBtn.classList.add('active');
+      signInBtn.classList.remove('active');
   });
+
+  signInBtn?.addEventListener('click', () => {
+      container.classList.remove('sign-up-mode');
+      signInBtn.classList.add('active');
+      signUpBtn.classList.remove('active');
+  });
+
+  // Desktop navigation
+  desktopSignUpBtn?.addEventListener('click', () => {
+      container.classList.add('sign-up-mode');
+  });
+
+  desktopSignInBtn?.addEventListener('click', () => {
+      container.classList.remove('sign-up-mode');
+  });
+
+  // Set initial active state for mobile
+  signInBtn?.classList.add('active');
+
+  // Sign Up Form Handler
+  signUpForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('signUpName').value;
+      const email = document.getElementById('signUpEmail').value;
+      const password = document.getElementById('signUpPassword').value;
+
+      try {
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
+
+          // Save user data to realtime database
+          await set(ref(database, 'users/' + user.uid), {
+              name: name,
+              email: email,
+              lastLogin: Date.now()
+          });
+
+          alert('Account created successfully!');
+          window.location.href = '/'; // Redirect to home page
+      } catch (error) {
+          alert(error.message);
+      }
+  });
+
+  // Sign In Form Handler
+  signInForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('signInEmail').value;
+      const password = document.getElementById('signInPassword').value;
+
+      try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
+
+          // Update last login
+          await update(ref(database, 'users/' + user.uid), {
+              lastLogin: Date.now()
+          });
+
+          alert('Signed in successfully!');
+          window.location.href = '/'; // Redirect to home page
+      } catch (error) {
+          alert(error.message);
+      }
+  });
+});
