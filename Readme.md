@@ -24,7 +24,6 @@ Welcome to the Music App! This application allows you to browse, play, and organ
 
 - **Frontend**:  HTML5, CSS3, Javascript
 - **Database**: Firebase
-- **Music API**: Spotify API (or whichever API is in use)
 
 
 
