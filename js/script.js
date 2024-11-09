@@ -290,8 +290,10 @@ async function main() {
 
         if (!isUserLoggedIn) {
             songPlayCount++;
+            alert("Please log in to continue listening.");
             if (songPlayCount >= 1) {
                 // After one song is completed, redirect to login page if not logged in
+                
                 console.log("Redirecting to login page...");
                 window.location.href = '/signIn.html';
             }
