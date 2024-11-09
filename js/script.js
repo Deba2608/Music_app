@@ -23,25 +23,29 @@ const signUpLink = document.getElementById('signup-link');
 const loginLink = document.getElementById('login-link');
 const logoutBtn = document.getElementById('logout-btn');
 
+let isUserLoggedIn = false;  // A flag to check login state
+let songPlayCount = 0;       // Count the number of songs played for non-logged-in users
+
+
 // Check if the user is logged in
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        // User is logged in, hide Sign up and Log in buttons, show Log out button
+        isUserLoggedIn = true;  // User is logged in
         signUpLink.style.display = 'none';
         loginLink.style.display = 'none';
         logoutBtn.style.display = 'block';
     } else {
-        // No user is logged in, show Sign up and Log in buttons, hide Log out button
+        isUserLoggedIn = false;  // No user is logged in
         signUpLink.style.display = 'block';
         loginLink.style.display = 'block';
         logoutBtn.style.display = 'none';
     }
 });
 
+
 // Log out functionality
 logoutBtn.addEventListener('click', () => {
     signOut(auth).then(() => {
-        console.log('User signed out');
         window.location.href = 'signIn.html'; // Redirect to login page after logout
     }).catch((error) => {
         console.error('Error signing out:', error);
@@ -50,23 +54,23 @@ logoutBtn.addEventListener('click', () => {
 
 
 // Function to redirect to login page after 5 seconds if not logged in
-function redirectIfNotLoggedIn() {
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
+// function redirectIfNotLoggedIn() {
+//     onAuthStateChanged(auth, (user) => {
+//         if (!user) {
 
-            console.log("User not logged in. Redirecting to login page in 5 seconds...");
-            setTimeout(function () {
-                window.location.href = '/signIn.html';
-            }, 8000);
-        } else {
-            console.log("User is logged in:", user);
+//             console.log("User not logged in. Redirecting to login page in 5 seconds...");
+//             setTimeout(function () {
+//                 window.location.href = '/signIn.html';
+//             }, 8000);
+//         } else {
+//             console.log("User is logged in:", user);
 
-        }
-    });
-}
+//         }
+//     });
+// }
 
 // Call the function when the page loads
-redirectIfNotLoggedIn();
+// redirectIfNotLoggedIn();
 
 
 
@@ -90,6 +94,8 @@ function secondsToMinutesSeconds(seconds) {
     return `${formattedMinutes}:${formattedSeconds}`;
 }
 
+
+//song list in left
 async function getSongs(folder) {
     currfolder = folder;
     let a = await fetch(`/${folder}/`)
@@ -170,7 +176,44 @@ const playMusic = (track, pause = false) => {
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00"
 
 
+    if (!isUserLoggedIn && songPlayCount >= 1) {
+        alert("Please log in to continue listening.");
+        window.location.href = '/signIn.html';
+        return;
+    }
 
+}
+
+// Update the song list button state
+function updateButtonState() {
+    let songItems = Array.from(document.querySelector(".songList").getElementsByTagName("li"));
+
+    songItems.forEach((songItem, index) => {
+        let playNowButton = songItem.querySelector(".playnow");
+        let playText = playNowButton.firstElementChild;
+        let playIcon = playNowButton.lastElementChild;
+
+
+        if (index === currentSongIndex) {
+            // Current song - check if it's playing or paused
+            if (currentSong.paused) {
+                // If paused, show "Play Now"
+                playText.innerHTML = "Play Now";
+                playText.style.cssText = "color: white; font-weight: normal; letter-spacing: 0;";
+                playIcon.src = "img/play.svg";
+            } else {
+                // If playing, show "Playing"
+                playText.innerHTML = "Playing";
+                playText.style.cssText = "color: #fd2955; font-weight: bold; letter-spacing: .8px;";
+                playIcon.src = "img/pause.svg";
+            }
+        } else {
+            // Other songs - not playing
+            playText.innerHTML = "Play Now";
+            playText.style.cssText = "color: white; font-weight: normal; letter-spacing: 0;";
+            playIcon.src = "img/play.svg";
+        }
+    });
 }
 
 async function displayAlbums() {
@@ -211,7 +254,7 @@ async function displayAlbums() {
 
     // Load the playlist whenever card is clicked
     Array.from(document.getElementsByClassName("card")).forEach(e => {
-        
+
 
         e.addEventListener("click", async item => {
 
@@ -219,27 +262,9 @@ async function displayAlbums() {
             currentSongIndex = 0;
             songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
             playMusic(songs[currentSongIndex].replace(".mp3", ""));
+            updateButtonState();  // Update button state after song is loaded
 
 
-        // Reset the play/pause button state for all songs
-        let songItems = Array.from(document.querySelector(".songList").getElementsByTagName("li"));
-        songItems.forEach((songItem, index) => {
-            let playNowButton = songItem.querySelector(".playnow");
-            let playText = playNowButton.firstElementChild;
-            let playIcon = playNowButton.lastElementChild;
-            
-            if (index === currentSongIndex) {
-                // Current song - playing
-                playText.innerHTML = "Playing";
-                playText.style.cssText = "color: #fd2955; font-weight: bold; letter-spacing: .8px;";
-                playIcon.src = "img/pause.svg";
-            } else {
-                // Other songs - not playing
-                playText.innerHTML = "Play Now";
-                playText.style.cssText = "color: white; font-weight: normal; letter-spacing: 0;";
-                playIcon.src = "img/play.svg";
-            }
-        });
 
         })
     })
@@ -262,6 +287,17 @@ async function main() {
         if (currentSongIndex < songs.length) {
             playMusic(songs[currentSongIndex].replace(".mp3", ""));
         }
+
+        if (!isUserLoggedIn) {
+            songPlayCount++;
+            if (songPlayCount >= 1) {
+                // After one song is completed, redirect to login page if not logged in
+                console.log("Redirecting to login page...");
+                window.location.href = '/signIn.html';
+            }
+        }
+
+
     });
 
     // Attach an event listener to play
@@ -269,10 +305,12 @@ async function main() {
         if (currentSong.paused) {
             currentSong.play()
             play.src = "img/pause.svg"
+
         }
         else {
             currentSong.pause()
             play.src = "img/play.svg"
+
         }
     })
 
@@ -362,70 +400,48 @@ async function main() {
     // change the play Now to playing and play.svg to pause.svg
     let array = Array.from(document.querySelector(".songList").getElementsByTagName("li"))
 
-     //if current song pause change the bottomn
-     currentSong.addEventListener("pause", () => {
-        play.src = "img/play.svg"
-
-
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
-        array[currentSongIndex].querySelector(".playnow").lastElementChild.src = "img/play.svg";
-
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.color = "white";
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal;letter-spacing:0";
-
-    })
-
-    //if current song play change the bottomn
+    // Handle play/pause toggle
     currentSong.addEventListener("play", () => {
-        play.src = "img/pause.svg"
+        play.src = "img/pause.svg";
+        updateButtonState();
+    });
+
+    currentSong.addEventListener("pause", () => {
+        play.src = "img/play.svg";
+
+        updateButtonState();
+    });
 
 
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.innerHTML = "Playing";
-        array[currentSongIndex].querySelector(".playnow").lastElementChild.src = "img/pause.svg";
-
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.cssText = "color: #fd2955; font-weight: bold ;letter-spacing: .8px; ";
-    })
-
-
-    //add an eventlistner to previous
+    // Handle previous song
     previous.addEventListener("click", () => {
-
-        currentSong.pause()
-        play.src = "img/play.svg"
+        currentSong.pause();
+        play.src = "img/play.svg";
 
         if ((currentSongIndex - 1) >= 0) {
-            playMusic(songs[currentSongIndex - 1].replace(".mp3", ""))
-            currentSongIndex--;
-
-            let previousSong = array[currentSongIndex + 1];
-            previousSong.querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
-            previousSong.querySelector(".playnow").lastElementChild.src = "img/play.svg";
-            previousSong.querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal;letter-spacing:0";
-
+            currentSongIndex--;  // Decrease the index
+            playMusic(songs[currentSongIndex].replace(".mp3", ""));
         } else {
-            play.src = "img/play.svg"
+            play.src = "img/play.svg";  // If no previous song, just reset play button
         }
-    })
+
+        updateButtonState();  // Update song list button state after switching song
+    });
 
     //add an eventlistner to  next
     next.addEventListener("click", () => {
-        currentSong.pause()
-        play.src = "img/play.svg"
+        currentSong.pause();
+        play.src = "img/play.svg";
 
         if ((currentSongIndex + 1) < songs.length) {
-            playMusic(songs[currentSongIndex + 1].replace(".mp3", ""))
-            currentSongIndex++;
-
-            let previousSong = array[currentSongIndex - 1];
-            previousSong.querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
-            previousSong.querySelector(".playnow").lastElementChild.src = "img/play.svg";
-            previousSong.querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal;letter-spacing:0";
-        }
-        else {
-            play.src = "img/play.svg"
+            currentSongIndex++;  // Increase the index
+            playMusic(songs[currentSongIndex].replace(".mp3", ""));
+        } else {
+            play.src = "img/play.svg";  // If no next song, just reset play button
         }
 
-    })
+        updateButtonState();  // Update song list button state after switching song
+    });
 
 
 
