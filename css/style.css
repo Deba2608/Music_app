@@ -366,7 +366,7 @@ html {
     position: relative;
     bottom: .4rem;
     left: 0%;
-    /* transition:  left .5s; */
+    transition: all 0.08s ease-out;
 }
 
 .abovebar {

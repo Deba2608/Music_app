@@ -127,7 +127,7 @@ async function getSongs(folder) {
     // attach an event listener to each song in the libary section
     let array = Array.from(document.querySelector(".songList").getElementsByTagName("li"))
     array.forEach((e, index) => {
-        
+
         e.addEventListener("click", (element) => {
             if (currentSongIndex !== null) {
                 // Reset the previously playing song
@@ -138,13 +138,13 @@ async function getSongs(folder) {
 
                 previousSong.querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal ;letter-spacing:0;";
             }
-// e.querySelector(".info").firstElementChild.style.transition="none"
+            // e.querySelector(".info").firstElementChild.style.transition="none"
 
             currentSongIndex = index;
             playMusic(e.querySelector(".info").firstElementChild.innerHTML);
 
-
             // Update the UI for the currently playing song
+
             e.querySelector(".playnow").firstElementChild.innerHTML = "Playing";
             e.querySelector(".playnow").lastElementChild.src = "img/pause.svg";
 
@@ -168,6 +168,9 @@ const playMusic = (track, pause = false) => {
     // document.querySelector(".playnow").innerHTML ="Playing"
     document.querySelector(".songinfo").innerHTML = decodeURI(track.replaceAll(".mp3", ""));
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00"
+
+
+
 }
 
 async function displayAlbums() {
@@ -206,13 +209,38 @@ async function displayAlbums() {
         }
     }
 
-    //Load the playlist whenever card is clicked
+    // Load the playlist whenever card is clicked
     Array.from(document.getElementsByClassName("card")).forEach(e => {
+        
 
         e.addEventListener("click", async item => {
+
+            // console.log(item);
             currentSongIndex = 0;
             songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
             playMusic(songs[currentSongIndex].replace(".mp3", ""));
+
+
+        // Reset the play/pause button state for all songs
+        let songItems = Array.from(document.querySelector(".songList").getElementsByTagName("li"));
+        songItems.forEach((songItem, index) => {
+            let playNowButton = songItem.querySelector(".playnow");
+            let playText = playNowButton.firstElementChild;
+            let playIcon = playNowButton.lastElementChild;
+            
+            if (index === currentSongIndex) {
+                // Current song - playing
+                playText.innerHTML = "Playing";
+                playText.style.cssText = "color: #fd2955; font-weight: bold; letter-spacing: .8px;";
+                playIcon.src = "img/pause.svg";
+            } else {
+                // Other songs - not playing
+                playText.innerHTML = "Play Now";
+                playText.style.cssText = "color: white; font-weight: normal; letter-spacing: 0;";
+                playIcon.src = "img/play.svg";
+            }
+        });
+
         })
     })
 }
@@ -226,15 +254,7 @@ async function main() {
     //Display all the albums on the page
     displayAlbums()
 
-    //if current song pause change the bottomn
-    currentSong.addEventListener("pause", () => {
-        play.src = "img/play.svg"
-    })
 
-    //if current song play change the bottomn
-    currentSong.addEventListener("play", () => {
-        play.src = "img/pause.svg"
-    })
 
     //next song play automatically
     currentSong.addEventListener("ended", () => {
@@ -289,7 +309,7 @@ async function main() {
 
     //search option appear
     document.querySelector(".search-icon").addEventListener("click", () => {
-        if (document.querySelector(".search-form").style.display === "none" || document.querySelector(".search-form").style.display === " ") {
+        if (document.querySelector(".search-form").style.display === "none" || document.querySelector(".search-form").style.display === "") {
 
             document.querySelector(".search-form").style.display = "flex";
             document.querySelector(".left").style.left = "-120%"
@@ -342,30 +362,30 @@ async function main() {
     // change the play Now to playing and play.svg to pause.svg
     let array = Array.from(document.querySelector(".songList").getElementsByTagName("li"))
 
-    // array.forEach((e, index)
-    currentSong.addEventListener("play", () => {
+     //if current song pause change the bottomn
+     currentSong.addEventListener("pause", () => {
+        play.src = "img/play.svg"
 
-        // if (currentSongIndex !== 0) {
-        //     // Reset the previously playing song
-        //     let previousSong = array[currentSongIndex - 1 ];
-        //     console.log(previousSong)
-        //     previousSong.querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
-        //     previousSong.querySelector(".playnow").lastElementChild.src = "img/play.svg";
-        // }
 
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.innerHTML = "Playing";
-        array[currentSongIndex].querySelector(".playnow").lastElementChild.src = "img/pause.svg";
-
-        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.cssText = "color: #fd2955; font-weight: bold ;letter-spacing: .8px; ";
-
-    })
-    currentSong.addEventListener("pause", () => {
         array[currentSongIndex].querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
         array[currentSongIndex].querySelector(".playnow").lastElementChild.src = "img/play.svg";
 
         array[currentSongIndex].querySelector(".playnow").firstElementChild.style.color = "white";
         array[currentSongIndex].querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal;letter-spacing:0";
+
     })
+
+    //if current song play change the bottomn
+    currentSong.addEventListener("play", () => {
+        play.src = "img/pause.svg"
+
+
+        array[currentSongIndex].querySelector(".playnow").firstElementChild.innerHTML = "Playing";
+        array[currentSongIndex].querySelector(".playnow").lastElementChild.src = "img/pause.svg";
+
+        array[currentSongIndex].querySelector(".playnow").firstElementChild.style.cssText = "color: #fd2955; font-weight: bold ;letter-spacing: .8px; ";
+    })
+
 
     //add an eventlistner to previous
     previous.addEventListener("click", () => {
@@ -376,8 +396,8 @@ async function main() {
         if ((currentSongIndex - 1) >= 0) {
             playMusic(songs[currentSongIndex - 1].replace(".mp3", ""))
             currentSongIndex--;
+
             let previousSong = array[currentSongIndex + 1];
-            console.log(previousSong)
             previousSong.querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
             previousSong.querySelector(".playnow").lastElementChild.src = "img/play.svg";
             previousSong.querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal;letter-spacing:0";
@@ -395,11 +415,10 @@ async function main() {
         if ((currentSongIndex + 1) < songs.length) {
             playMusic(songs[currentSongIndex + 1].replace(".mp3", ""))
             currentSongIndex++;
+
             let previousSong = array[currentSongIndex - 1];
-            console.log(previousSong)
             previousSong.querySelector(".playnow").firstElementChild.innerHTML = "Play Now";
             previousSong.querySelector(".playnow").lastElementChild.src = "img/play.svg";
-
             previousSong.querySelector(".playnow").firstElementChild.style.cssText = "color: white; font-weight: normal;letter-spacing:0";
         }
         else {
@@ -407,6 +426,7 @@ async function main() {
         }
 
     })
+
 
 
 
